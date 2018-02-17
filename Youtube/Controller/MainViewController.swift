@@ -13,11 +13,27 @@ class MainViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Main"
+        setupNavigationBar()
         
+        setupCollectionView()
+    }
+    
+    func setupCollectionView() {
         collectionView?.register(MainCell.self, forCellWithReuseIdentifier: "cellId")
         
         collectionView?.backgroundColor = .white
+    }
+    
+    func setupNavigationBar() {
+        // make the navigation bar not half-tansparent
+        navigationController?.navigationBar.isTranslucent = false
+        
+        // make main title of the navigation bar align to the left and white
+        let mainTitle = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: navigationController!.navigationBar.frame.height))
+        mainTitle.text = "Main"
+        mainTitle.textColor = .white
+        mainTitle.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        navigationItem.titleView = mainTitle
         
     }
 
