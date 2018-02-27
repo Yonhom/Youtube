@@ -14,6 +14,9 @@
 		52900DEF203827B700291B36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52900DED203827B700291B36 /* LaunchScreen.storyboard */; };
 		52900DFA2038397300291B36 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52900DF92038397300291B36 /* MainCell.swift */; };
 		52900DFD20384E1800291B36 /* UIColor+rgb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52900DFC20384E1800291B36 /* UIColor+rgb.swift */; };
+		52ABE9B22045208000E7F948 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ABE9B12045208000E7F948 /* MenuBar.swift */; };
+		52ABE9B42045232200E7F948 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ABE9B32045232200E7F948 /* AppConstant.swift */; };
+		52ABE9B620452AE800E7F948 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ABE9B520452AE800E7F948 /* MenuCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		52900DF0203827B700291B36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52900DF92038397300291B36 /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
 		52900DFC20384E1800291B36 /* UIColor+rgb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+rgb.swift"; sourceTree = "<group>"; };
+		52ABE9B12045208000E7F948 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		52ABE9B32045232200E7F948 /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
+		52ABE9B520452AE800E7F948 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				52900DF92038397300291B36 /* MainCell.swift */,
+				52ABE9B12045208000E7F948 /* MenuBar.swift */,
+				52ABE9B520452AE800E7F948 /* MenuCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -98,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				52900DFC20384E1800291B36 /* UIColor+rgb.swift */,
+				52ABE9B32045232200E7F948 /* AppConstant.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -174,10 +183,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52ABE9B620452AE800E7F948 /* MenuCell.swift in Sources */,
 				52900DE7203827B700291B36 /* MainViewController.swift in Sources */,
 				52900DE5203827B700291B36 /* AppDelegate.swift in Sources */,
 				52900DFA2038397300291B36 /* MainCell.swift in Sources */,
+				52ABE9B42045232200E7F948 /* AppConstant.swift in Sources */,
 				52900DFD20384E1800291B36 /* UIColor+rgb.swift in Sources */,
+				52ABE9B22045208000E7F948 /* MenuBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

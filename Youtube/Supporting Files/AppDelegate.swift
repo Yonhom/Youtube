@@ -26,11 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         // change the appearance of the overall navigation bar
-        UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 230, green: 32, blue: 31)
+        UINavigationBar.appearance().barTintColor = AppConstant.APP_THEME_COLOR
+        // remove the line at the bottom of the navigation bar
+        UINavigationBar.appearance().shadowImage = UIImage()
         
         // change the status bar's backgroundview
         let statusBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: window!.frame.width, height: 20))
-        statusBackgroundView.backgroundColor = UIColor.rgb(red: 194, green: 31, blue: 31)
+        statusBackgroundView.backgroundColor = AppConstant.STATUS_BAR_BACKGROUND_COLOR
         window!.addSubview(statusBackgroundView)
         
         // change the status bar's content mode to light

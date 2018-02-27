@@ -9,19 +9,39 @@
 import UIKit
 
 class MainViewController: UICollectionViewController {
-
+    
+    let menuTabBar: MenuBar = {
+        let menuBar = MenuBar()
+        return menuBar
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavigationBar()
         
         setupCollectionView()
+        
+        setupMenuBar()
+    }
+    
+    func setupMenuBar() {
+        view.addSubview(menuTabBar)
+        menuTabBar.translatesAutoresizingMaskIntoConstraints = false
+        menuTabBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        menuTabBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        menuTabBar.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        menuTabBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func setupCollectionView() {
         collectionView?.register(MainCell.self, forCellWithReuseIdentifier: "cellId")
         
         collectionView?.backgroundColor = .white
+        
+        // set layout insets for both collectionView and scroll indicator
+        collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
     }
     
     func setupNavigationBar() {
