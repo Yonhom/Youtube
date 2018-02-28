@@ -15,6 +15,8 @@ class MainViewController: UICollectionViewController {
         return menuBar
     }()
     
+    var videos: [Video]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,6 +25,20 @@ class MainViewController: UICollectionViewController {
         setupCollectionView()
         
         setupMenuBar()
+        
+        fetchData()
+    }
+    
+    func fetchData() {
+        // https://s3-us-west-2.amazonaws.com/youtubeassets/home.json
+        let urlStr = "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json"
+        
+        Video.videos(from: urlStr) { videos in
+            self.videos = videos
+            DispatchQueue.main.async(execute: {
+                self.collectionView?.reloadData()
+            })
+        }
     }
     
     func setupMenuBar() {
@@ -55,29 +71,44 @@ class MainViewController: UICollectionViewController {
         mainTitle.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         navigationItem.titleView = mainTitle
         
+        // add right bar button item
+        let search = UIBarButtonItem(image: UIImage(named: "search_icon")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(searchTapped))
+        let more = UIBarButtonItem(image: UIImage(named: "nav_more_icon")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(moreTapped))
+        
+        navigationItem.rightBarButtonItems = [more, search]
+        
+    }
+    
+    @objc func searchTapped() {
+        
+    }
+    
+    @objc func moreTapped() {
+        
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return videos?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MainCell
+        cell.video = videos?[indexPath.item]
         return cell
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        // remove the padding between cells
         return 0
     }
+    
 }
 
 // MARK: - item size and spacing delegate
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 240)
+        return CGSize(width: view.frame.width, height: 270)
     }
 
 }
