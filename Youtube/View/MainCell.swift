@@ -63,7 +63,7 @@ class MainCell: UICollectionViewCell {
     }
     
     let coverImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named:"taylor_swift_blank_space"))
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -72,7 +72,6 @@ class MainCell: UICollectionViewCell {
     
     let userImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "taylor_swift_profile")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 20.0
@@ -83,7 +82,6 @@ class MainCell: UICollectionViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Blank Space"
         label.numberOfLines = 2
         return label
     }()
@@ -91,7 +89,6 @@ class MainCell: UICollectionViewCell {
     let infoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Tayler Swift"
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .gray
         label.numberOfLines = 2
