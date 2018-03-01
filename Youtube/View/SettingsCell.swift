@@ -15,7 +15,7 @@ class SettingsCell: UICollectionViewCell {
             // setting a image whose tint color can change
             settingsImageView.image = UIImage(named: (settingData?.imageName)!)?.withRenderingMode(.alwaysTemplate)
             settingsImageView.tintColor = .darkGray
-            settingsTitle.text = settingData?.name
+            settingsTitle.text = settingData?.name?.rawValue
         }
     }
     

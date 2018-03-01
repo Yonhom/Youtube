@@ -8,6 +8,16 @@
 
 import UIKit
 
+enum SettingName: String {
+    
+    case Settings = "Settings"
+    case SwitchAccount = "Switch Account"
+    case SendFeedback = "Send Feedback"
+    case TermsPrivacyPolicy = "Terms & Privacy Policy"
+    case Help = "Help"
+    case Cancel = "Cancel"
+}
+
 class Settings: NSObject {
     
     let mainWindow = (UIApplication.shared.delegate?.window)!!
@@ -17,12 +27,12 @@ class Settings: NSObject {
     
     lazy var settingsData: [Setting] = {
         let data = [
-            Setting(name: "Settings", imageName: "settings"),
-            Setting(name: "Switch Account", imageName: "switch_account"),
-            Setting(name: "Send Feedback", imageName: "feedback"),
-            Setting(name: "Terms & Privacy Policy", imageName: "privacy"),
-            Setting(name: "Help", imageName: "help"),
-            Setting(name: "Cancel", imageName: "cancel")
+            Setting(name: .Settings, imageName: "settings"),
+            Setting(name: .SwitchAccount, imageName: "switch_account"),
+            Setting(name: .SendFeedback, imageName: "feedback"),
+            Setting(name: .TermsPrivacyPolicy, imageName: "privacy"),
+            Setting(name: .Help, imageName: "help"),
+            Setting(name: .Cancel, imageName: "cancel")
         ]
         return data
     }()
@@ -56,7 +66,7 @@ class Settings: NSObject {
         // add settings to system window
         mainWindow.addSubview(settingsMenu)
         // animate the bg view to screen
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
             self.bg.alpha = 1
             self.settingsMenu.frame = CGRect(x: 0, y: self.mainWindow.frame.height - self.settingsCellHeight * self.settingsCellCount, width: self.mainWindow.frame.width, height: self.settingsCellHeight * self.settingsCellCount)
         }, completion: nil)
@@ -66,7 +76,7 @@ class Settings: NSObject {
     
     @objc func dismissSettingsForTitle(name: AnyObject) {
         // dismiss the bg view
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
             // when a view's alpha is 0, it can't receive touch events
             self.bg.alpha = 0
             
@@ -74,7 +84,7 @@ class Settings: NSObject {
         }, completion: { _ in
             let cellTitleName = name as? String
             // if the bg view is clicked to dismiss the settings view, then the cell title name will be nil, otherwise it will be a string
-            if cellTitleName != nil && cellTitleName! != "Cancel" {
+            if cellTitleName != nil && cellTitleName! != SettingName.Cancel.rawValue {
                 // present controller
                 let vc = UIViewController()
                 vc.view.backgroundColor = .white

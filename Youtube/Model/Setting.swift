@@ -10,11 +10,11 @@ import Foundation
 
 class Setting {
     
-    init(name: String, imageName: String) {
+    init(name: SettingName, imageName: String) {
         self.name = name
         self.imageName = imageName
     }
     
-    var name: String?
+    var name: SettingName?
     var imageName: String?
 }
