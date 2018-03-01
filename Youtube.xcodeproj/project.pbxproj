@@ -20,6 +20,9 @@
 		52ABE9B9204545D400E7F948 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ABE9B8204545D400E7F948 /* Video.swift */; };
 		52ABE9BB2045462F00E7F948 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ABE9BA2045462F00E7F948 /* Channel.swift */; };
 		52ABE9BE204680CD00E7F948 /* UIImage+Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ABE9BD204680CD00E7F948 /* UIImage+Web.swift */; };
+		52ABE9C02047CD4900E7F948 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ABE9BF2047CD4900E7F948 /* Settings.swift */; };
+		52ABE9C22047D2C200E7F948 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ABE9C12047D2C200E7F948 /* SettingsCell.swift */; };
+		52ABE9C42047D66500E7F948 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ABE9C32047D66500E7F948 /* Setting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		52ABE9B8204545D400E7F948 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		52ABE9BA2045462F00E7F948 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		52ABE9BD204680CD00E7F948 /* UIImage+Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Web.swift"; sourceTree = "<group>"; };
+		52ABE9BF2047CD4900E7F948 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		52ABE9C12047D2C200E7F948 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		52ABE9C32047D66500E7F948 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,8 @@
 				52900DF92038397300291B36 /* MainCell.swift */,
 				52ABE9B12045208000E7F948 /* MenuBar.swift */,
 				52ABE9B520452AE800E7F948 /* MenuCell.swift */,
+				52ABE9BF2047CD4900E7F948 /* Settings.swift */,
+				52ABE9C12047D2C200E7F948 /* SettingsCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -124,6 +132,7 @@
 			children = (
 				52ABE9B8204545D400E7F948 /* Video.swift */,
 				52ABE9BA2045462F00E7F948 /* Channel.swift */,
+				52ABE9C32047D66500E7F948 /* Setting.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,13 +211,16 @@
 			files = (
 				52ABE9B620452AE800E7F948 /* MenuCell.swift in Sources */,
 				52900DE7203827B700291B36 /* MainViewController.swift in Sources */,
+				52ABE9C22047D2C200E7F948 /* SettingsCell.swift in Sources */,
 				52ABE9BE204680CD00E7F948 /* UIImage+Web.swift in Sources */,
+				52ABE9C42047D66500E7F948 /* Setting.swift in Sources */,
 				52900DE5203827B700291B36 /* AppDelegate.swift in Sources */,
 				52900DFA2038397300291B36 /* MainCell.swift in Sources */,
 				52ABE9B42045232200E7F948 /* AppConstant.swift in Sources */,
 				52ABE9B9204545D400E7F948 /* Video.swift in Sources */,
 				52900DFD20384E1800291B36 /* UIColor+rgb.swift in Sources */,
 				52ABE9BB2045462F00E7F948 /* Channel.swift in Sources */,
+				52ABE9C02047CD4900E7F948 /* Settings.swift in Sources */,
 				52ABE9B22045208000E7F948 /* MenuBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

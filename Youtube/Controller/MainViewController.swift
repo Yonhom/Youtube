@@ -50,11 +50,11 @@ class MainViewController: UICollectionViewController {
         menuTabBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
+    let videoCellId = "videoCellId"
+    
     func setupCollectionView() {
-        collectionView?.register(MainCell.self, forCellWithReuseIdentifier: "cellId")
-        
+        collectionView?.register(MainCell.self, forCellWithReuseIdentifier: videoCellId)
         collectionView?.backgroundColor = .white
-        
         // set layout insets for both collectionView and scroll indicator
         collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
@@ -83,18 +83,22 @@ class MainViewController: UICollectionViewController {
         
     }
     
+    let settings = Settings()
+    
     @objc func moreTapped() {
-        
+        settings.showSettings()
     }
 
+    // MARK: - collection view delegate & datasource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MainCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: videoCellId, for: indexPath) as! MainCell
         cell.video = videos?[indexPath.item]
         return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
