@@ -10,11 +10,6 @@ import UIKit
 
 class MainViewController: UICollectionViewController {
     
-    let menuTabBar: MenuBar = {
-        let menuBar = MenuBar()
-        return menuBar
-    }()
-    
     var videos: [Video]?
     
     override func viewDidLoad() {
@@ -41,13 +36,36 @@ class MainViewController: UICollectionViewController {
         }
     }
     
+    let menuTabBar: MenuBar = {
+        let menuBar = MenuBar()
+        return menuBar
+    }()
+    
+    // hiding behind navigation bar, so when navigation bar is retracted from drag gesture, there wont be a gap between navigation bar and menu bar
+    let maskView: UIView = {
+        let view = UIView()
+        view.backgroundColor = AppConstant.APP_THEME_COLOR
+        return view
+    }()
+    
     func setupMenuBar() {
         view.addSubview(menuTabBar)
+        view.addSubview(maskView)
+        
+        // constraints for menuBar
         menuTabBar.translatesAutoresizingMaskIntoConstraints = false
         menuTabBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        menuTabBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        // view.safeAreaLayoutGuide.topAnchor: this is where the status bar's bottom anchor is 
+        menuTabBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         menuTabBar.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         menuTabBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        // constraint for maskView
+        maskView.translatesAutoresizingMaskIntoConstraints = false
+        maskView.bottomAnchor.constraint(equalTo: menuTabBar.topAnchor).isActive = true
+        maskView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        maskView.heightAnchor.constraint(equalToConstant: (navigationController?.navigationBar.frame.height)!).isActive = true
+        maskView.leftAnchor.constraint(equalTo: menuTabBar.leftAnchor).isActive = true
     }
     
     let videoCellId = "videoCellId"
@@ -63,6 +81,9 @@ class MainViewController: UICollectionViewController {
     func setupNavigationBar() {
         // make the navigation bar not half-tansparent
         navigationController?.navigationBar.isTranslucent = false
+        
+        // make the navigation bar to retract itself when collection view scroll up
+        navigationController?.hidesBarsOnSwipe = true
         
         // make main title of the navigation bar align to the left and white
         let mainTitle = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: navigationController!.navigationBar.frame.height))

@@ -28,6 +28,13 @@ class MenuBar: UIView {
         return collectionView
     }()
     
+    lazy var indicatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        
+        return view
+    }()
+    
     let menuBarImageNames = ["home", "trending", "subscriptions", "account"]
 
     override init(frame: CGRect) {
@@ -35,6 +42,23 @@ class MenuBar: UIView {
         backgroundColor = AppConstant.APP_THEME_COLOR
         
         setupMenuCollectionView()
+        
+        setupIndicatorView()
+    }
+    
+    // the left constraint of the indicator to manipulate
+    var indicatorLeftConstraint: NSLayoutConstraint?
+    
+    func setupIndicatorView() {
+        addSubview(indicatorView)
+        
+        // layout
+        indicatorView.translatesAutoresizingMaskIntoConstraints = false
+        indicatorLeftConstraint = indicatorView.leftAnchor.constraint(equalTo: leftAnchor)
+        indicatorLeftConstraint?.isActive = true
+        indicatorView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        indicatorView.heightAnchor.constraint(equalToConstant: 3).isActive = true
+        indicatorView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 4).isActive = true
     }
     
     func setupMenuCollectionView() {
@@ -70,6 +94,15 @@ extension MenuBar: UICollectionViewDataSource, UICollectionViewDelegateFlowLayou
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let x = CGFloat(indexPath.row) * UIScreen.main.bounds.width / 4
+        indicatorLeftConstraint?.constant = x
+        // animate the constraint change
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            self.layoutIfNeeded()
+        }, completion: nil)
     }
     
 }
