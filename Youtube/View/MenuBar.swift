@@ -10,6 +10,8 @@ import UIKit
 
 class MenuBar: UIView {
     
+    weak var mainController: MainViewController?
+    
     let cellId = "cellId"
     
     lazy var menuCollectionView: UICollectionView = {
@@ -97,12 +99,7 @@ extension MenuBar: UICollectionViewDataSource, UICollectionViewDelegateFlowLayou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let x = CGFloat(indexPath.row) * UIScreen.main.bounds.width / 4
-        indicatorLeftConstraint?.constant = x
-        // animate the constraint change
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-            self.layoutIfNeeded()
-        }, completion: nil)
+        mainController?.collectionView?.scrollToItem(at: indexPath, at: .left, animated: true)
     }
     
 }
