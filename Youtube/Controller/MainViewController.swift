@@ -10,8 +10,6 @@ import UIKit
 
 class MainViewController: UICollectionViewController {
     
-    var videos: [Video]?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,19 +19,6 @@ class MainViewController: UICollectionViewController {
         
         setupMenuBar()
         
-        fetchData()
-    }
-    
-    func fetchData() {
-        // https://s3-us-west-2.amazonaws.com/youtubeassets/home.json
-        let urlStr = "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json"
-        
-        Video.videos(from: urlStr) { videos in
-            self.videos = videos
-            DispatchQueue.main.async(execute: {
-                self.collectionView?.reloadData()
-            })
-        }
     }
     
     lazy var menuTabBar: MenuBar = {
@@ -69,8 +54,9 @@ class MainViewController: UICollectionViewController {
         maskView.leftAnchor.constraint(equalTo: menuTabBar.leftAnchor).isActive = true
     }
     
-    let videoCellId = "videoCellId"
-    let sectionCellId = "sectionCellId"
+    let homeFeedCellId = "mainFeedCellId"
+    let trendingFeedCellId = "trendingFeedCellId"
+    let subscriptionFeedCellId = "subscriptionFeedCellId"
     
     func setupCollectionView() {
         // specify the collection view scroll direction
@@ -81,12 +67,16 @@ class MainViewController: UICollectionViewController {
         // enable paging
         collectionView?.isPagingEnabled = true
         
-//        collectionView?.register(MainCell.self, forCellWithReuseIdentifier: videoCellId)
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: sectionCellId)
+        // register reusable cells
+        collectionView?.register(HomeFeedCell.self, forCellWithReuseIdentifier: homeFeedCellId)
+        collectionView?.register(TrendingFeedCell.self, forCellWithReuseIdentifier: trendingFeedCellId)
+        collectionView?.register(SubscriptionFeedCell.self, forCellWithReuseIdentifier: subscriptionFeedCellId)
+        
         collectionView?.backgroundColor = .white
         // set layout insets for both collectionView and scroll indicator
         collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
+        
     }
     
     func setupNavigationBar() {
@@ -94,7 +84,7 @@ class MainViewController: UICollectionViewController {
         navigationController?.navigationBar.isTranslucent = false
         
         // make the navigation bar to retract itself when collection view scroll up
-        navigationController?.hidesBarsOnSwipe = true
+//        navigationController?.hidesBarsOnSwipe = true
         
         // make main title of the navigation bar align to the left and white
         let mainTitle = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: navigationController!.navigationBar.frame.height))
@@ -126,18 +116,29 @@ class MainViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let sectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: sectionCellId, for: indexPath)
-        let colors: [UIColor] = [.blue, .red, .yellow, .green]
-        sectionCell.backgroundColor = colors[indexPath.item]
-        return sectionCell
+        var identifier: String!
+        switch indexPath.row {
+        case 0:
+            identifier = homeFeedCellId
+        case 1:
+            identifier = trendingFeedCellId
+        case 2:
+            identifier = subscriptionFeedCellId
+        default:
+            identifier = subscriptionFeedCellId
+            break
+        }
+        let feedCell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! FeedCell
+        feedCell.mainController = self
+        return feedCell
     }
-    
     
     // MARK: - scrollView delegate method
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let indicatorConstraintL = menuTabBar.indicatorLeftConstraint
         // move the menu indicator when the collection view is dragged
         indicatorConstraintL?.constant = scrollView.contentOffset.x / 4
+
     }
     
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -148,30 +149,14 @@ class MainViewController: UICollectionViewController {
         menuTabBar.menuCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
         
     }
-
-    // MARK: - collection view delegate & datasource
-//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return videos?.count ?? 0
-//    }
-//
-//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: videoCellId, for: indexPath) as! MainCell
-//        cell.video = videos?[indexPath.item]
-//        return cell
-//
-//    }
     
 }
 
 // MARK: - item size and spacing delegate
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: view.frame.width, height: 270)
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height)
+        return CGSize(width: view.frame.width, height: view.frame.height - 50)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
